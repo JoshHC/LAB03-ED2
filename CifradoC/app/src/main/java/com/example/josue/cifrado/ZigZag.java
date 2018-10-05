@@ -4,7 +4,7 @@ public class ZigZag {
 
     private char[] Texto;
     private int[] niveles;
-    private int Nivel;
+    private static int Nivel;
 
 
     public ZigZag(String Texto, int Nivel) {
@@ -99,5 +99,6 @@ public class ZigZag {
 
         return tamaños;
     }
+
 
 }

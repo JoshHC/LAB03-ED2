@@ -31,6 +31,8 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
     private String DirectorioRaiz;
     private TextView CarpetaActual;
     ListView Lista;
+    static String TextoParaDecifrar;
+    static int NiveldeDecifrado;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -145,8 +147,9 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
                 Dialogo.setCancelable(false);
                 Dialogo.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo, int id) {
-
-                        //ZigZag CifradoZigZag = new ZigZag();
+                        //ZigZag CifradoZigZag = new ZigZag(TextoParaDecifrar,NiveldeDecifrado);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new ProcesoCifradoZigZag()).commit();
+                        Toast.makeText(getActivity(), "El Texto se Ha Codificado Correctamente ",Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -169,5 +172,12 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
             VerDirectorio(RutasArchivos.get(i));
         }
     }
+
+    public void RecibirParametros(String texto, int nivel)
+    {
+        TextoParaDecifrar = texto;
+        NiveldeDecifrado = nivel;
+    }
+
 
 }

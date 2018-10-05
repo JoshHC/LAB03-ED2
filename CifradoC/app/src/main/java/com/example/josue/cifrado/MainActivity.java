@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (id == R.id.nav_camera) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new CifradoZigZag()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new ProcesoCifradoZigZag()).commit();
         } else if (id == R.id.nav_gallery) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new CifradoEspiral()).commit();
         } else if (id == R.id.nav_slideshow) {
