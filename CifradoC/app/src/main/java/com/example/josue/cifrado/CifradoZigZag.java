@@ -146,6 +146,8 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
                 Dialogo.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo, int id) {
 
+                        //ZigZag CifradoZigZag = new ZigZag();
+
                     }
                 });
                 Dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
