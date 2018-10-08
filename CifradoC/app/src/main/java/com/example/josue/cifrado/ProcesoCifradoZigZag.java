@@ -29,6 +29,7 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
     TextView TextoDescifrado;
     TextView TextoaDecifrar;
     Button BotonCifrar;
+    static String Decifrado;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,9 +68,17 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
         }else {
             Datos.RecibirParametros(TextoaDecifrar.getText().toString(), Integer.parseInt(Nivel.getText().toString()));
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new CifradoZigZag()).commit();
+            TextoDescifrado.setText(Decifrado);
         }
     }
 
+<<<<<<< HEAD
+=======
+    public void RecibirParametros(String texto)
+    {
+        Decifrado = texto;
+    }
+>>>>>>> 094d60bbf2d2de79486cc14820157725d1e02fc9
 }
 
 
