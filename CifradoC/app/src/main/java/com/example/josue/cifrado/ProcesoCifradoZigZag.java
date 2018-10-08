@@ -69,7 +69,7 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new CifradoZigZag()).commit();
         }
     }
-    
+
 }
 
 
