@@ -1,24 +1,11 @@
 package com.example.josue.cifrado;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +14,10 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
 
     TextView Nivel;
     TextView TextoDescifrado;
-    TextView TextoaDecifrar;
+    TextView TextoCifrado;
     Button BotonCifrar;
+    Button BotonDecifrar;
+    static String Cifrado;
     static String Decifrado;
 
     @Override
@@ -38,11 +27,16 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
 
         Nivel = (TextView) view.findViewById(R.id.txtNivel);
         TextoDescifrado = (TextView) view.findViewById(R.id.txtTextoDescifrado);
-        TextoaDecifrar = (TextView) view.findViewById(R.id.txtTextoaDescifrar);
+        TextoCifrado = (TextView) view.findViewById(R.id.txtTextoaDescifrar);
         BotonCifrar = (Button) view.findViewById(R.id.btnCifrar);
-
+        BotonDecifrar = (Button) view.findViewById(R.id.btnDescifrar);
+        TextoCifrado.setEnabled(false);
+        TextoCifrado.setFocusable(false);
+        TextoDescifrado.setEnabled(false);
+        TextoDescifrado.setFocusable(false);
 
         BotonCifrar.setOnClickListener(this);
+        BotonDecifrar.setOnClickListener(this);
 
         return view;
     }
@@ -50,35 +44,58 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         CifradoZigZag Datos = new CifradoZigZag();
-
         String Auxiliar = Nivel.getText().toString();
 
-        if(Auxiliar.equals("1"))
+        switch (view.getId())
         {
+            case R.id.btnCifrar:
 
-            Toast.makeText(getActivity(), "ERROR El Nivel no Puede estar comprendido entre 0-1 ",Toast.LENGTH_SHORT).show();
-            Nivel.setText(" ");
+                if(Auxiliar.equals("1"))
+                {
 
-        }else if (Auxiliar.equals("0"))
-        {
+                    Toast.makeText(getActivity(), "ERROR El Nivel no Puede estar comprendido entre 0-1 ",Toast.LENGTH_SHORT).show();
+                    Nivel.setText(" ");
 
-            Toast.makeText(getActivity(), "ERROR El Nivel no Puede estar comprendido entre 0-1 ",Toast.LENGTH_SHORT).show();
-            Nivel.setText(" ");
+                }else if (Auxiliar.equals("0"))
+                {
 
-        }else {
-            Datos.RecibirParametros(TextoaDecifrar.getText().toString(), Integer.parseInt(Nivel.getText().toString()));
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new CifradoZigZag()).commit();
-            TextoDescifrado.setText(Decifrado);
+                    Toast.makeText(getActivity(), "ERROR El Nivel no Puede estar comprendido entre 0-1 ",Toast.LENGTH_SHORT).show();
+                    Nivel.setText(" ");
+
+                }else if (Auxiliar.equals(""))
+                {
+                    Toast.makeText(getActivity(), "Debe de Ingresar un Nivel para poder continuar",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Datos.RecibirParametros(TextoCifrado.getText().toString(), Integer.parseInt(Nivel.getText().toString()));
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new CifradoZigZag()).commit();
+                    TextoCifrado.setText(Cifrado);
+                    TextoCifrado.setEnabled(true);
+                    TextoCifrado.setFocusable(true);
+
+                    if(Decifrado.equals("") == false)
+                    {
+                        TextoDescifrado.setText(Decifrado);
+                        TextoDescifrado.setEnabled(true);
+                        TextoDescifrado.setFocusable(true);
+                    }
+                }
+
+                break;
+
+            case R.id.btnDescifrar:
+                Toast.makeText(getActivity(), "Aqui va todo el codigo para descifrar",Toast.LENGTH_SHORT).show();
+                break;
         }
+
     }
 
-<<<<<<< HEAD
-=======
-    public void RecibirParametros(String texto)
+    public void RecibirParametros(String textoc, String textod)
     {
-        Decifrado = texto;
+        Cifrado = textoc;
+        Decifrado = textod;
+
     }
->>>>>>> 094d60bbf2d2de79486cc14820157725d1e02fc9
 }
 
 

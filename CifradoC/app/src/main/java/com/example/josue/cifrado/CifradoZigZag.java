@@ -147,10 +147,12 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
                 Dialogo.setCancelable(false);
                 Dialogo.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo, int id) {
-
+                        TextoParaDecifrar = LeerArchivo(archivo);
                         ZigZag CifradoZigZag = new ZigZag(TextoParaDecifrar,NiveldeDecifrado);
                         String TextoCifrado = CifradoZigZag.Cifrar();
 
+                        ProcesoCifradoZigZag Envio = new ProcesoCifradoZigZag();
+                        Envio.RecibirParametros(TextoCifrado, "");
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new ProcesoCifradoZigZag()).commit();
                         Toast.makeText(getActivity(), "El Texto se Ha Codificado Correctamente ",Toast.LENGTH_SHORT).show();
 
