@@ -4,6 +4,7 @@ public class ZigZag {
 
     private char[] Texto;
     private int[] niveles;
+    private Riel[] Rieles;
     private static int Nivel;
 
 
@@ -11,6 +12,7 @@ public class ZigZag {
         this.Texto = Rellenar(Texto, Nivel).toCharArray();
         niveles = ObtenerTamañosOla(Nivel);
         this.Nivel = Nivel;
+        Rieles = new Riel[Nivel];
     }
 
     public String Cifrar()
@@ -40,6 +42,24 @@ public class ZigZag {
 
         return TextoCifrado;
     }
+
+    /*
+    public void Descifrar()
+    {
+        // SE ASIGNAN LOS ESPACIOS PARA DESCIFRAR
+        Riel crestas = new Riel(cantExtremos);
+        Rieles[0] = crestas;
+
+        for(int i = 1; i < (Nivel-1); i++)
+        {
+            Riel temp = new Riel(cantMedios);
+            Rieles[i] = temp;
+        }
+
+        Riel valles = new Riel(cantExtremos);
+        Rieles[Nivel-1] = valles;
+    }
+    */
 
     private String ObtenerExtremos (int caracter, int cantExtremos)
     {
@@ -72,7 +92,7 @@ public class ZigZag {
         return SeccionTexto;
     }
 
-    // RELLENA EL TEXTO CON λ PARA QUE LAS OLAS SEAN EXACTAS
+    // RELLENA EL TEXTO CON espacios PARA QUE LAS OLAS SEAN EXACTAS
     private String Rellenar (String Texto, int Nivel)
     {
         int tOla = (Nivel*2)-2;
@@ -85,20 +105,20 @@ public class ZigZag {
         return Texto;
     }
 
-    // OBTIENE EL TAMAÑO DE LAS OLAS EN TODOS LOS NIVELES
+    // OBTIENE EL TAMAÑO DE LAS OLAS EN TODOS LOS NIVELES (POSICION DE DISTINTOS CARACTERES)
     private int[] ObtenerTamañosOla (int Nivel)
     {
         int[] tamaños = new int[Nivel + 2];
 
-        tamaños[0] = 0; tamaños[1] = 0;
+        tamaños[0] = 0;
+        tamaños[1] = 0;
 
         for (int i = 2; i < Nivel + 2; i++)
-        {
             tamaños[i] = (i*2)-2;
-        }
 
         return tamaños;
     }
 
 
 }
+
