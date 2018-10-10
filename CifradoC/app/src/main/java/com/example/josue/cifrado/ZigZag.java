@@ -34,6 +34,7 @@ public class ZigZag {
             while (paso < Nivel-1)
             {
                 TextoCifrado += ObtenerMedios(paso, cantMedios, Nivel-paso);
+                paso++;
             }
         }
 
@@ -96,7 +97,7 @@ public class ZigZag {
     private String Rellenar (String Texto, int Nivel)
     {
         int tOla = (Nivel*2)-2;
-        int cantOla = (int) Math.ceil(Texto.length()/tOla);
+        int cantOla = Texto.length()/tOla +1;
         int CantRellenar = (cantOla*tOla)-Texto.length();
 
         for(int i = 0; i < CantRellenar; i++)
