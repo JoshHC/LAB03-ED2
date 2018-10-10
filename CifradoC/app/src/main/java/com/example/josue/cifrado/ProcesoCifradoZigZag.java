@@ -73,14 +73,14 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
                     TextoCifrado.setEnabled(true);
                     TextoCifrado.setFocusable(true);
 
-                    /*
-                    if(Decifrado.equals("") == false)
-                    {
-                        TextoDescifrado.setText(Decifrado);
-                        TextoDescifrado.setEnabled(true);
-                        TextoDescifrado.setFocusable(true);
+
+                    if(Decifrado!= null) {
+                        if (Decifrado.equals("") == false) {
+                            TextoDescifrado.setText(Decifrado);
+                            TextoDescifrado.setEnabled(true);
+                            TextoDescifrado.setFocusable(true);
+                        }
                     }
-                    */
                 }
 
                 break;
