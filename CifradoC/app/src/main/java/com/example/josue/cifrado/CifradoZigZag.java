@@ -36,6 +36,7 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
     ListView Lista;
     static String TextoParaDecifrar;
     static int NiveldeDecifrado;
+    static String ruta;
     static String Carpeta;
     static String ArchivoT;
 
@@ -159,7 +160,7 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
                         Escribir(TextoCifrado);
 
                         ProcesoCifradoZigZag Envio = new ProcesoCifradoZigZag();
-                        Envio.RecibirParametros(TextoCifrado, ArchivoT);
+                        Envio.RecibirParametros(TextoCifrado, ruta);
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new ProcesoCifradoZigZag()).commit();
                         Toast.makeText(getActivity(), "El Texto se Ha Codificado Correctamente ",Toast.LENGTH_SHORT).show();
 
@@ -257,6 +258,7 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
                 if (item.toString().contains(Carpeta) == true) {
                     Ruta = item.getAbsolutePath();
                     Ruta = Ruta + Formato;
+                    this.ruta = Ruta;
                 }
             }
 
@@ -274,37 +276,25 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
     }
 
     //Metodo en donde se escribe el Archivo
-     public void EscribirDecifrado(String Cadena, String RutaAux)
-    {
-        MainActivity P = new MainActivity();
-        File directorioactual = new File(DirectorioRaiz);
-        File[] ListadeArchivos = directorioactual.listFiles();
-        String Ruta = "";
-        File ArchivoNuevo = new File(RutaAux);
-        String Formato = "/"+ArchivoNuevo.getName().replace(".txt",".cif");
+    public void EscribirDecifrado(String Cadena, String RutaAux) {
+        File ArchivoNuevo = new File(ArchivoT);
+        File Auxiliar = new File(RutaAux);
+        String Formato = "/" + ArchivoNuevo.getName().replace(".txt", ".cif");
+        String Aux = " Decifrado";
+        String Ruta = Formato.replace(".cif", Aux) + ".cif";
+        String TextoaReemplazar = Auxiliar.getName();
+        RutaAux = RutaAux.replace(TextoaReemplazar, Ruta);
 
-        if(Carpeta == null)
-        {
-            Toast.makeText(getActivity(), "No hay Ningun Archivo para Escribir Aún", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            for (File item : ListadeArchivos) {
-                if (item.toString().contains(Carpeta) == true) {
-                    Ruta = item.getAbsolutePath();
-                    Ruta = Ruta + Formato;
-                }
-            }
 
-            File Archivo = new File(Ruta);
-            try {
-                FileWriter Escribir = new FileWriter(Archivo);
-                BufferedWriter bw = new BufferedWriter(Escribir);
-                bw.write(Cadena);
-                bw.close();
-                Escribir.close();
-            } catch (IOException ex) {
-                Toast.makeText(getActivity(), "No se Ha podido leer el archivo", Toast.LENGTH_SHORT).show();
-            }
+        File Archivo = new File(RutaAux);
+        try {
+            FileWriter Escribir = new FileWriter(Archivo);
+            BufferedWriter bw = new BufferedWriter(Escribir);
+            bw.write(Cadena);
+            bw.close();
+            Escribir.close();
+        } catch (IOException ex) {
+            Toast.makeText(getActivity(), "No se Ha podido leer el archivo", Toast.LENGTH_SHORT).show();
         }
     }
 

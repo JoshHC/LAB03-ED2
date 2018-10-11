@@ -104,6 +104,13 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
 
             case R.id.btnDescifrar:
 
+                if(Auxiliar.equals(""))
+                {
+                    Toast.makeText(getActivity(),"Debe de Ingresar el Nivel de Descifrado", Toast.LENGTH_SHORT).show();
+
+                }
+                else
+                {
                 //Aqui va todo el codigo para decifrar
                 final  CifradoZigZag ExtraerDatos = new CifradoZigZag();
 
@@ -155,18 +162,22 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
+
                 //Aqui se envia a Descifrar y a Escribir
                 CifradoZigZag Envio = new CifradoZigZag();
                 //Aqui debe de recibir el texto decifrado que se va aenviar a escribir
                 File ArchivoCifrado = new File(RutaArchivoCifrado);
                 String TextoCifrado = Envio.LeerArchivo(ArchivoCifrado);
 
-                ZigZag DescifradoZigZag = new ZigZag(TextoCifrado, nivel);
+                ZigZag DescifradoZigZag = new ZigZag(nivel, TextoCifrado);
                 String TextoDecifrado = DescifradoZigZag.Descifrar();
 
-                Envio.EscribirDecifrado(TextoDecifrado,Ruta);
+                TextoDescifrado.setText(TextoDecifrado);
+                Envio.EscribirDecifrado(TextoDecifrado,RutaArchivoCifrado);
+                Toast.makeText(getActivity(),"Se ha Decifrado el Archivo Correctamente", Toast.LENGTH_SHORT).show();
 
                 break;
+        }
         }
 
     }
