@@ -109,6 +109,8 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
 
             case R.id.btnDescifrar:
 
+                if(Auxiliar.equals("") == false)
+                {
                     //Aqui va todo el codigo para decifrar
                     final  CifradoZigZag ExtraerDatos = new CifradoZigZag();
 
@@ -175,7 +177,7 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
                     dialog.show();
 
                     break;
-                }
+                }}
         }
 
 
