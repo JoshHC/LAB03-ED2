@@ -159,7 +159,7 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
                         Escribir(TextoCifrado);
 
                         ProcesoCifradoZigZag Envio = new ProcesoCifradoZigZag();
-                        Envio.RecibirParametros(ArchivoT, "");
+                        Envio.RecibirParametros(TextoCifrado, "");
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new ProcesoCifradoZigZag()).commit();
                         Toast.makeText(getActivity(), "El Texto se Ha Codificado Correctamente ",Toast.LENGTH_SHORT).show();
 
