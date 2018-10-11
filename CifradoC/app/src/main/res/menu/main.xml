@@ -6,10 +6,5 @@
         android:orderInCategory="100"
         android:title="Seleccionar Ruta para Cifrar"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/Decifrado"
-        android:orderInCategory="100"
-        android:title="Seleccionar Ruta para Decifrar"
-        app:showAsAction="never" />
 
 </menu>
