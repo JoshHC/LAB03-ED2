@@ -154,8 +154,9 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
                     public void onClick(DialogInterface dialogo, int id) {
                         TextoParaDecifrar = LeerArchivo(archivo);
                         ZigZag CifradoZigZag = new ZigZag(TextoParaDecifrar,NiveldeDecifrado);
-                        ArchivoT = CifradoZigZag.Cifrar();
-                        Escribir(ArchivoT);
+                        ArchivoT = archivo.toString();
+                        String TextoCifrado = CifradoZigZag.Cifrar();
+                        Escribir(TextoCifrado);
 
                         ProcesoCifradoZigZag Envio = new ProcesoCifradoZigZag();
                         Envio.RecibirParametros(ArchivoT, "");
