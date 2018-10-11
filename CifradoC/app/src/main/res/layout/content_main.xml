@@ -9,10 +9,17 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"></LinearLayout>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textinstrucciones"
+            android:layout_width="357dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/bienvenido_para_utilizar_algun_m_todo_de_cifrado_presione_la_esquina_superior_izquierda_para_seleccionar_la_ruta_donde_desea_guardar_su_archivo_cifrado_presione_la_esquina_superior_derecha_y_seleccione_una_ruta"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>

@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -139,6 +140,9 @@ public class MainActivity extends AppCompatActivity
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (id == R.id.nav_camera) {
+            TextView Instrucciones = findViewById(R.id.textinstrucciones);
+            Instrucciones.setEnabled(false);
+            Instrucciones.setVisibility(View.INVISIBLE);
             fragmentManager.beginTransaction().replace(R.id.contenedor, new ProcesoCifradoZigZag()).commit();
         } else if (id == R.id.nav_gallery) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new CifradoEspiral()).commit();
