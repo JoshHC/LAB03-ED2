@@ -16,4 +16,6 @@
     <string name="buscar_archivo">Buscar Archivo</string>
     <string name="el_texto_cifrado_es">El Texto Cifrado es:</string>
     <string name="bienvenido_para_utilizar_algun_m_todo_de_cifrado_presione_la_esquina_superior_izquierda_para_seleccionar_la_ruta_donde_desea_guardar_su_archivo_cifrado_presione_la_esquina_superior_derecha_y_seleccione_una_ruta">Bienvenido! para utilizar algun método de Cifrado presione la esquina superior izquierda, para seleccionar la ruta donde desea guardar su Archivo cifrado presione la esquina superior derecha y seleccione una ruta</string>
+    <string name="ingrese_el_nivel_de_cifrado_o_decifrado_para_zig_zag">ingrese_el_nivel_de_cifrado_o decifrado para_zig_zag</string>
+    <string name="ingrese_el_nivel">Ingrese el Nivel</string>
 </resources>

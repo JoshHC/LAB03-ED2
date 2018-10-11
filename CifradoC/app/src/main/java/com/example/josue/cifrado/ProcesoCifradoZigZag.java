@@ -59,7 +59,12 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
     public void onClick(View view) {
         CifradoZigZag Datos = new CifradoZigZag();
         String Auxiliar = Nivel.getText().toString();
-        nivel = Integer.parseInt(Auxiliar);
+        if(Auxiliar.equals("") == false) {
+            nivel = Integer.parseInt(Auxiliar);
+        }else
+        {
+            Toast.makeText(getActivity(), "Debe de Ingresar un Nivel para Poder Continuar",Toast.LENGTH_SHORT).show();
+        }
 
         switch (view.getId())
         {
@@ -104,72 +109,75 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
 
             case R.id.btnDescifrar:
 
-                //Aqui va todo el codigo para decifrar
-                final  CifradoZigZag ExtraerDatos = new CifradoZigZag();
+                    //Aqui va todo el codigo para decifrar
+                    final  CifradoZigZag ExtraerDatos = new CifradoZigZag();
 
-                //Esto es para Que seleccione la Ruta donde desea guardar el archivo decifrado
-                //Se Extraen los datos Leidos de la Estructura para fijarlos en la Actividad
-                List<String> Lista = ExtraerDatos.EnviarNombres();
+                    //Esto es para Que seleccione la Ruta donde desea guardar el archivo decifrado
+                    //Se Extraen los datos Leidos de la Estructura para fijarlos en la Actividad
+                    List<String> Lista = ExtraerDatos.EnviarNombres();
 
-                final String[] ListaNombres = new String[Lista.size()];
-                int contador = 0;
-                for(String i: Lista)
-                {
-                    ListaNombres[contador]= i;
-                    contador++;
-                }
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Selecciona la Ruta para Guardar tu Archivo Decifrado");
-
-                int checkedItem = 1; // cow
-                builder.setSingleChoiceItems(ListaNombres, checkedItem, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // user checked an item
+                    final String[] ListaNombres = new String[Lista.size()];
+                    int contador = 0;
+                    for(String i: Lista)
+                    {
+                        ListaNombres[contador]= i;
+                        contador++;
                     }
-                });
 
-                builder.setItems(ListaNombres,
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int item)
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Selecciona la Ruta para Guardar tu Archivo Decifrado");
+
+                    int checkedItem = 1; // cow
+                    builder.setSingleChoiceItems(ListaNombres, checkedItem, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // user checked an item
+                        }
+                    });
+
+                    builder.setItems(ListaNombres,
+                            new DialogInterface.OnClickListener()
                             {
-                                Toast.makeText(getActivity(),"Has Elegido Guardar tu Archivo Decifrado en: " + ListaNombres[item], Toast.LENGTH_SHORT).show();
-                                //Se envian los datos a los Fragments
-                                ExtraerDatos.RecibirRuta(ListaNombres[item]);
-                                Ruta = ListaNombres[item];
-                            }
-                        });
+                                public void onClick(DialogInterface dialog, int item)
+                                {
+                                    Toast.makeText(getActivity(),"Has Elegido Guardar tu Archivo Decifrado en: " + ListaNombres[item], Toast.LENGTH_SHORT).show();
+                                    //Se envian los datos a los Fragments
+                                    ExtraerDatos.RecibirRuta(ListaNombres[item]);
+                                    Ruta = ListaNombres[item];
 
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
 
-                    }
-                });
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                builder.setNegativeButton("Cancel", null);
+                            //Aqui se envia a Descifrar y a Escribir
+                            CifradoZigZag Envio = new CifradoZigZag();
+                            //Aqui debe de recibir el texto decifrado que se va aenviar a escribir
+                            File ArchivoCifrado = new File(RutaArchivoCifrado);
+                            String TextoCifrado = Envio.LeerArchivo(ArchivoCifrado);
+
+                            ZigZag DescifradoZigZag = new ZigZag(nivel, TextoCifrado);
+                            String TextoDecifrado = DescifradoZigZag.Descifrar();
+
+                            TextoDescifrado.setText(TextoDecifrado);
+                            Envio.EscribirDecifrado(TextoDecifrado,Ruta);
+                            Toast.makeText(getActivity(),"Se ha Decifrado el Archivo Correctamente", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+                    builder.setNegativeButton("Cancel", null);
 
 
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
 
-                //Aqui se envia a Descifrar y a Escribir
-                CifradoZigZag Envio = new CifradoZigZag();
-                //Aqui debe de recibir el texto decifrado que se va aenviar a escribir
-                File ArchivoCifrado = new File(RutaArchivoCifrado);
-                String TextoCifrado = Envio.LeerArchivo(ArchivoCifrado);
-
-                ZigZag DescifradoZigZag = new ZigZag(TextoCifrado, nivel);
-                String TextoDecifrado = DescifradoZigZag.Descifrar();
-
-                Envio.EscribirDecifrado(TextoDecifrado,Ruta);
-
-                break;
+                    break;
+                }
         }
 
-    }
 
     public void RecibirParametros(String textoc, String RutaArchivoCifrado)
     {
@@ -179,5 +187,6 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
 
 
 }
+
 
 
