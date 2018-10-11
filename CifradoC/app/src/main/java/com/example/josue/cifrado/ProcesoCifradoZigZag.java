@@ -29,7 +29,8 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
     Button BotonCifrar;
     Button BotonDecifrar;
     static String Cifrado;
-    static String Decifrado;
+    static String RutaArchivoCifrado;
+    static int nivel;
     //Ruta del Archivo
     String Ruta;
 
@@ -58,6 +59,7 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
     public void onClick(View view) {
         CifradoZigZag Datos = new CifradoZigZag();
         String Auxiliar = Nivel.getText().toString();
+        nivel = Integer.parseInt(Auxiliar);
 
         switch (view.getId())
         {
@@ -87,6 +89,7 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
                     TextoCifrado.setFocusable(true);
 
 
+                    /*
                     if(Decifrado!= null) {
                         if (Decifrado.equals("") == false) {
                             TextoDescifrado.setText(Decifrado);
@@ -94,6 +97,7 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
                             TextoDescifrado.setFocusable(true);
                         }
                     }
+                    */
                 }
 
                 break;
@@ -150,24 +154,27 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
-            /*
+
                 //Aqui se envia a Descifrar y a Escribir
                 CifradoZigZag Envio = new CifradoZigZag();
                 //Aqui debe de recibir el texto decifrado que se va aenviar a escribir
-                String TextoDecifrado = "";
-                //TextoDecifrado = FunciondeDecifrado();
+                File ArchivoCifrado = new File(RutaArchivoCifrado);
+                String TextoCifrado = Envio.LeerArchivo(ArchivoCifrado);
+
+                ZigZag DescifradoZigZag = new ZigZag(TextoCifrado, nivel);
+                String TextoDecifrado = DescifradoZigZag.Descifrar();
+
                 Envio.EscribirDecifrado(TextoDecifrado,Ruta);
-                */
+
                 break;
         }
 
     }
 
-    public void RecibirParametros(String textoc, String textod)
+    public void RecibirParametros(String textoc, String RutaArchivoCifrado)
     {
         Cifrado = textoc;
-        Decifrado = textod;
-
+        this.RutaArchivoCifrado = RutaArchivoCifrado;
     }
 
 
