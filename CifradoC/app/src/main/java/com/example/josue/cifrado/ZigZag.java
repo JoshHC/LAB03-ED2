@@ -51,12 +51,9 @@ public class ZigZag {
         return TextoCifrado;
     }
 
-
-    public String Descifrar()
+    /*
+    public void Descifrar()
     {
-        int cantExtremos = this.Texto.length/niveles[Nivel];
-        int cantMedios = cantExtremos*2;
-
         // SE ASIGNAN LOS ESPACIOS PARA DESCIFRAR
         Riel crestas = new Riel(cantExtremos);
         Rieles[0] = crestas;
@@ -69,60 +66,8 @@ public class ZigZag {
 
         Riel valles = new Riel(cantExtremos);
         Rieles[Nivel-1] = valles;
-
-        // SE COMIENZAN A RELLENAR LOS RIELES
-        for (int i = 0; i < cantExtremos; i++)
-        {
-            Rieles[0].Riel[i] = this.Texto[i];
-        }
-
-        int cont = 0;
-        int cAcumulado = cantExtremos;
-        for (int i = 1; i < (Nivel-1); i++)
-        {
-            while (cont < cantMedios)
-            {
-                Rieles[i].Riel[cont] = this.Texto[cAcumulado];
-                cAcumulado++;
-                cont++;
-            }
-            cont = 0;
-        }
-
-
-        cont = 0;
-        for (int i = this.Texto.length - cantExtremos; i < this.Texto.length; i++)
-        {
-            Rieles[Nivel-1].Riel[cont] = this.Texto[i];
-            cont++;
-        }
-
-        String Descifrado = "";
-
-        int pasoExtremos = 0;
-        int pasoMedios = 0;
-        for (int i = 0; i < cantExtremos; i++)
-        {
-            Descifrado += Character.toString(Rieles[0].Riel[pasoExtremos]);
-
-            for (int a = 1; a < (Nivel-1); a++)
-                Descifrado += Character.toString(Rieles[a].Riel[pasoMedios]);
-
-            pasoMedios++;
-
-            Descifrado += Character.toString(Rieles[(Nivel-1)].Riel[pasoExtremos]);
-            pasoExtremos++;
-
-            for (int a = (Nivel-2); a > 0; a--)
-                Descifrado += Character.toString(Rieles[a].Riel[pasoMedios]);
-
-            pasoMedios++;
-        }
-
-        return Descifrado;
     }
-
-
+    */
 
     private String ObtenerExtremos (int caracter, int cantExtremos)
     {

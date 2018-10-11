@@ -101,7 +101,7 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
     }
 
     //Metodo en donde se lee el Archivo
-    public String LeerArchivo (File Archivo)
+    private String LeerArchivo (File Archivo)
     {
         String Texto = "";
         if(Archivo.exists()==true)
@@ -160,7 +160,19 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
                         Escribir(TextoCifrado);
 
                         ProcesoCifradoZigZag Envio = new ProcesoCifradoZigZag();
+<<<<<<< HEAD
                         Envio.RecibirParametros(TextoCifrado, ruta);
+=======
+<<<<<<< HEAD
+                        Envio.RecibirParametros(TextoCifrado, ruta);
+=======
+<<<<<<< HEAD
+                        Envio.RecibirParametros(TextoCifrado, ruta);
+=======
+                        Envio.RecibirParametros(TextoCifrado, "");
+>>>>>>> 7e9e9be46adbbf409582bc57241e4cec348bd2d0
+>>>>>>> 29e6ef10f275a22cea8410b6414d1d03334887ee
+>>>>>>> 041a608e7cf2efc9219842e8a0d6db622bd861b8
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new ProcesoCifradoZigZag()).commit();
                         Toast.makeText(getActivity(), "El Texto se Ha Codificado Correctamente ",Toast.LENGTH_SHORT).show();
 
@@ -277,16 +289,29 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
 
     //Metodo en donde se escribe el Archivo
     public void EscribirDecifrado(String Cadena, String RutaAux) {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 041a608e7cf2efc9219842e8a0d6db622bd861b8
 
         MainActivity P = new MainActivity();
         File directorioactual = new File(DirectorioRaiz);
         File[] ListadeArchivos = directorioactual.listFiles();
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 29e6ef10f275a22cea8410b6414d1d03334887ee
+>>>>>>> 041a608e7cf2efc9219842e8a0d6db622bd861b8
         File ArchivoNuevo = new File(ArchivoT);
         File Auxiliar = new File(RutaAux);
         String Formato = "/" + ArchivoNuevo.getName().replace(".txt", ".cif");
         String Aux = " Decifrado";
         String Ruta = Formato.replace(".cif", Aux) + ".cif";
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 041a608e7cf2efc9219842e8a0d6db622bd861b8
         String AuxT = "";
         String RutaC = "";
         //String TextoaReemplazar = Auxiliar.getName();
@@ -312,6 +337,21 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
             } catch (IOException ex) {
                 Toast.makeText(getActivity(), "No se Ha podido leer el archivo", Toast.LENGTH_SHORT).show();
             }
+=======
+        String TextoaReemplazar = Auxiliar.getName();
+        RutaAux = RutaAux.replace(TextoaReemplazar, Ruta);
+
+
+        File Archivo = new File(RutaAux);
+        try {
+            FileWriter Escribir = new FileWriter(Archivo);
+            BufferedWriter bw = new BufferedWriter(Escribir);
+            bw.write(Cadena);
+            bw.close();
+            Escribir.close();
+        } catch (IOException ex) {
+            Toast.makeText(getActivity(), "No se Ha podido leer el archivo", Toast.LENGTH_SHORT).show();
+>>>>>>> 29e6ef10f275a22cea8410b6414d1d03334887ee
         }
 
     }
