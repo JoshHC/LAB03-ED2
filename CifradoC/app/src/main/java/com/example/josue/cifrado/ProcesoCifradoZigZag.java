@@ -29,7 +29,7 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
     Button BotonCifrar;
     Button BotonDecifrar;
     static String Cifrado;
-    static String RutaArchivoCifrado;
+    static String Decifrado;
     //Ruta del Archivo
     String Ruta;
 
@@ -86,15 +86,14 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
                     TextoCifrado.setEnabled(true);
                     TextoCifrado.setFocusable(true);
 
-                    /*
+
                     if(Decifrado!= null) {
                         if (Decifrado.equals("") == false) {
                             TextoDescifrado.setText(Decifrado);
                             TextoDescifrado.setEnabled(true);
                             TextoDescifrado.setFocusable(true);
                         }
-
-                    }*/
+                    }
                 }
 
                 break;
@@ -164,10 +163,10 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
 
     }
 
-    public void RecibirParametros(String textoc, String RutaArchivoCifrado)
+    public void RecibirParametros(String textoc, String textod)
     {
         Cifrado = textoc;
-        RutaArchivoCifrado = RutaArchivoCifrado;
+        Decifrado = textod;
 
     }
 
