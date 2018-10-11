@@ -29,8 +29,7 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
     Button BotonCifrar;
     Button BotonDecifrar;
     static String Cifrado;
-    static String RutaArchivoCifrado;
-    static int nivel;
+    static String Decifrado;
     //Ruta del Archivo
     String Ruta;
 
@@ -59,7 +58,6 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
     public void onClick(View view) {
         CifradoZigZag Datos = new CifradoZigZag();
         String Auxiliar = Nivel.getText().toString();
-        nivel = Integer.parseInt(Auxiliar);
 
         switch (view.getId())
         {
@@ -89,7 +87,6 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
                     TextoCifrado.setFocusable(true);
 
 
-                    /*
                     if(Decifrado!= null) {
                         if (Decifrado.equals("") == false) {
                             TextoDescifrado.setText(Decifrado);
@@ -97,7 +94,6 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
                             TextoDescifrado.setFocusable(true);
                         }
                     }
-                    */
                 }
 
                 break;
@@ -161,6 +157,7 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
+<<<<<<< HEAD
 
 
                 //Aqui se envia a Descifrar y a Escribir
@@ -176,16 +173,27 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
                 Envio.EscribirDecifrado(TextoDecifrado,RutaArchivoCifrado);
                 Toast.makeText(getActivity(),"Se ha Decifrado el Archivo Correctamente", Toast.LENGTH_SHORT).show();
 
+=======
+            /*
+                //Aqui se envia a Descifrar y a Escribir
+                CifradoZigZag Envio = new CifradoZigZag();
+                //Aqui debe de recibir el texto decifrado que se va aenviar a escribir
+                String TextoDecifrado = "";
+                //TextoDecifrado = FunciondeDecifrado();
+                Envio.EscribirDecifrado(TextoDecifrado,Ruta);
+                */
+>>>>>>> 7e9e9be46adbbf409582bc57241e4cec348bd2d0
                 break;
         }
         }
 
     }
 
-    public void RecibirParametros(String textoc, String RutaArchivoCifrado)
+    public void RecibirParametros(String textoc, String textod)
     {
         Cifrado = textoc;
-        this.RutaArchivoCifrado = RutaArchivoCifrado;
+        Decifrado = textod;
+
     }
 
 

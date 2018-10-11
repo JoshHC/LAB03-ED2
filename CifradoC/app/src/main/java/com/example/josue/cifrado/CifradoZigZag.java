@@ -101,7 +101,7 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
     }
 
     //Metodo en donde se lee el Archivo
-    public String LeerArchivo (File Archivo)
+    private String LeerArchivo (File Archivo)
     {
         String Texto = "";
         if(Archivo.exists()==true)
@@ -160,7 +160,11 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
                         Escribir(TextoCifrado);
 
                         ProcesoCifradoZigZag Envio = new ProcesoCifradoZigZag();
+<<<<<<< HEAD
                         Envio.RecibirParametros(TextoCifrado, ruta);
+=======
+                        Envio.RecibirParametros(TextoCifrado, "");
+>>>>>>> 7e9e9be46adbbf409582bc57241e4cec348bd2d0
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new ProcesoCifradoZigZag()).commit();
                         Toast.makeText(getActivity(), "El Texto se Ha Codificado Correctamente ",Toast.LENGTH_SHORT).show();
 
