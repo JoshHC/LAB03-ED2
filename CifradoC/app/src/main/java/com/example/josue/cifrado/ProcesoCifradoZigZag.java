@@ -1,6 +1,9 @@
 package com.example.josue.cifrado;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListener {
@@ -19,6 +30,8 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
     Button BotonDecifrar;
     static String Cifrado;
     static String Decifrado;
+    //Ruta del Archivo
+    String Ruta;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,7 +99,65 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
                 break;
 
             case R.id.btnDescifrar:
-                Toast.makeText(getActivity(), "Aqui va todo el codigo para descifrar",Toast.LENGTH_SHORT).show();
+
+                //Aqui va todo el codigo para decifrar
+                final  CifradoZigZag ExtraerDatos = new CifradoZigZag();
+
+                //Esto es para Que seleccione la Ruta donde desea guardar el archivo decifrado
+                //Se Extraen los datos Leidos de la Estructura para fijarlos en la Actividad
+                List<String> Lista = ExtraerDatos.EnviarNombres();
+
+                final String[] ListaNombres = new String[Lista.size()];
+                int contador = 0;
+                for(String i: Lista)
+                {
+                    ListaNombres[contador]= i;
+                    contador++;
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Selecciona la Ruta para Guardar tu Archivo Decifrado");
+
+                int checkedItem = 1; // cow
+                builder.setSingleChoiceItems(ListaNombres, checkedItem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // user checked an item
+                    }
+                });
+
+                builder.setItems(ListaNombres,
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int item)
+                            {
+                                Toast.makeText(getActivity(),"Has Elegido Guardar tu Archivo Decifrado en: " + ListaNombres[item], Toast.LENGTH_SHORT).show();
+                                //Se envian los datos a los Fragments
+                                ExtraerDatos.RecibirRuta(ListaNombres[item]);
+                                Ruta = ListaNombres[item];
+                            }
+                        });
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", null);
+
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            /*
+                //Aqui se envia a Descifrar y a Escribir
+                CifradoZigZag Envio = new CifradoZigZag();
+                //Aqui debe de recibir el texto decifrado que se va aenviar a escribir
+                String TextoDecifrado = "";
+                //TextoDecifrado = FunciondeDecifrado();
+                Envio.EscribirDecifrado(TextoDecifrado,Ruta);
+                */
                 break;
         }
 
@@ -98,6 +169,8 @@ public class ProcesoCifradoZigZag extends Fragment implements View.OnClickListen
         Decifrado = textod;
 
     }
+
+
 }
 
 
