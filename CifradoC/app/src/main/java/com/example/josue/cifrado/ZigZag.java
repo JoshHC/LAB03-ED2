@@ -15,6 +15,13 @@ public class ZigZag {
         Rieles = new Riel[Nivel];
     }
 
+    public ZigZag(int Nivel, String Texto) {
+        this.Texto = Texto.toCharArray();
+        niveles = ObtenerTamañosOla(Nivel);
+        this.Nivel = Nivel;
+        Rieles = new Riel[Nivel];
+    }
+
     public String Cifrar()
     {
         String TextoCifrado = "";
