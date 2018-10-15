@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new CifradoZigZag()).commit();
         } else if (id == R.id.nav_gallery) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new CifradoEspiral()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new SDES()).commit();
         } else if (id == R.id.nav_slideshow) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new CifradoCesar()).commit();
         } else if (id == R.id.nav_manage) {
