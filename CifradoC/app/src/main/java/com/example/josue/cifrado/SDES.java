@@ -1,9 +1,7 @@
 package com.example.josue.cifrado;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CifradoCesar extends Fragment implements OnItemClickListener {
+public class SDES extends Fragment implements OnItemClickListener {
 
     private List<String> NombresArchivos;
     private List<String> RutasArchivos;
@@ -36,10 +34,10 @@ public class CifradoCesar extends Fragment implements OnItemClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_cifrado_cesar, container, false);
+        View view = inflater.inflate(R.layout.fragment_sdes, container, false);
 
-        CarpetaActual = (TextView) view.findViewById(R.id.RutaCesar);
-        Lista = (ListView) view.findViewById(R.id.ListaCesar);
+        CarpetaActual = (TextView) view.findViewById(R.id.RutaSDES);
+        Lista = (ListView) view.findViewById(R.id.ListaSDES);
 
         DirectorioRaiz = Environment.getExternalStorageDirectory().getPath();
         Lista.setOnItemClickListener(this);
@@ -140,7 +138,7 @@ public class CifradoCesar extends Fragment implements OnItemClickListener {
             {
                 AlertDialog.Builder Dialogo = new AlertDialog.Builder(getActivity());
                 Dialogo.setTitle("Importante");
-                Dialogo.setMessage("¿Desea Aplicar El Metodo de Cifrado Cesar?");
+                Dialogo.setMessage("¿Desea Aplicar El Metodo de Cifrado SDES?");
                 Dialogo.setCancelable(false);
                 Dialogo.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo, int id) {

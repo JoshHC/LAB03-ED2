@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CifradoCesar">
+    tools:context=".SDES">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/RutaCesar"
+            android:id="@+id/RutaSDES"
             android:layout_width="match_parent"
             android:layout_height="18dp"
             android:background="#070689b4"
@@ -23,7 +23,7 @@
             android:textStyle="bold" />
 
         <ListView
-            android:id="@+id/ListaCesar"
+            android:id="@+id/ListaSDES"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

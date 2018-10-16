@@ -12,6 +12,5 @@
     <string name="ingrese_la_llave">Ingrese la Llave</string>
     <string name="ingrese_la_llave_de_cifrado">Ingrese la Llave de Cifrado</string>
     <string name="buscar_archivo">Buscar Archivo</string>
-    <string name="buscar_archivo">Buscar Archivo</string>
     <string name="ingrese_la_llave_de_descifrado">Ingrese la Llave de Descifrado</string>
 </resources>
