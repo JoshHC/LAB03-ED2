@@ -30,6 +30,7 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
     private List<String> RutasArchivos;
     private String DirectorioRaiz;
     private TextView CarpetaActual;
+    static String Carpeta;
     ListView Lista;
 
     @Override
@@ -93,7 +94,7 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
     }
 
     //Metodo en donde se lee el Archivo
-    private String LeerArchivo (File Archivo)
+    public String LeerArchivo(File Archivo)
     {
         String Texto = "";
         if(Archivo.exists()==true)
@@ -129,6 +130,53 @@ public class CifradoZigZag extends Fragment implements OnItemClickListener {
         }
 
         return "-1";
+    }
+
+
+    //Metodo que recibe la ruta para guardar el archivo.
+    public String RecibirRuta(String carpeta)
+    {
+        Carpeta = carpeta;
+        return Carpeta;
+    }
+
+    //Metodo en donde se envian los nombres de los directorios validos
+    public List<String> EnviarNombres()
+    {
+        DirectorioRaiz = Environment.getExternalStorageDirectory().getPath();
+        NombresArchivos = new ArrayList<String>();
+        RutasArchivos = new ArrayList<String>();
+        int count = 0;
+        File directorioactual = new File(DirectorioRaiz);
+        File[] ListadeArchivos = directorioactual.listFiles();
+
+        if (!DirectorioRaiz.equals(DirectorioRaiz)) {
+            NombresArchivos.add("../");
+            RutasArchivos.add(directorioactual.getParent());
+            count = 1;
+        }
+
+        for (File archivo : ListadeArchivos) {
+            RutasArchivos.add(archivo.getPath());
+        }
+        Collections.sort(RutasArchivos, String.CASE_INSENSITIVE_ORDER);
+
+        for (int i = count; i < RutasArchivos.size(); i++) {
+            File archivo = new File(RutasArchivos.get(i));
+
+            if (archivo.isFile()) {
+                NombresArchivos.add(archivo.getName());
+            } else {
+                NombresArchivos.add("/" + archivo.getName());
+            }
+        }
+
+        if (ListadeArchivos.length < 1) {
+            NombresArchivos.add("No hay ningun archivo");
+            RutasArchivos.add(DirectorioRaiz);
+        }
+
+        return NombresArchivos;
     }
 
     @Override

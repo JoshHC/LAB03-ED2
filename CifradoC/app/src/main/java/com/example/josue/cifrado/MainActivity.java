@@ -1,5 +1,7 @@
 package com.example.josue.cifrado;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,9 +14,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    //Ruta del Archivo
+    String Ruta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +76,58 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            final CifradoZigZag ExtraerDatos = new CifradoZigZag();
+            //Se Extraen los datos Leidos de la Estructura para fijarlos en la Actividad
+            List<String> Lista = ExtraerDatos.EnviarNombres();
+
+            final String[] ListaNombres = new String[Lista.size()];
+            int contador = 0;
+            for(String i: Lista)
+            {
+                ListaNombres[contador]= i;
+                contador++;
+            }
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Selecciona la Ruta para Guardar tus Archivos");
+
+            int checkedItem = 1; // cow
+            builder.setSingleChoiceItems(ListaNombres, checkedItem, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // user checked an item
+                }
+            });
+
+            builder.setItems(ListaNombres,
+                    new DialogInterface.OnClickListener()
+                    {
+                        public void onClick(DialogInterface dialog, int item)
+                        {
+                            Toast.makeText(getApplicationContext(),"Has Elegido Guardar tu Cifrado en: " + ListaNombres[item], Toast.LENGTH_SHORT).show();
+                            //Se envian los datos a los Fragments
+                            ExtraerDatos.RecibirRuta(ListaNombres[item]);
+                            Ruta = ListaNombres[item];
+                        }
+                    });
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+
+            builder.setNegativeButton("Cancel", null);
+
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -85,9 +142,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             fragmentManager.beginTransaction().replace(R.id.contenedor, new CifradoZigZag()).commit();
         } else if (id == R.id.nav_gallery) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new SDES()).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new ProcesoSDES()).commit();
         } else if (id == R.id.nav_slideshow) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new CifradoCesar()).commit();
+
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
