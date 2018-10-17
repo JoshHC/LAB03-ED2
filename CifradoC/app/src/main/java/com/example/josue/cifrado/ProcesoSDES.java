@@ -30,7 +30,6 @@ public class ProcesoSDES extends Fragment implements View.OnClickListener{
     Button BotonCifrar;
     Button BotonDecifrar;
     static String RutaArchivoCifrado;
-    String Key;
     String Ruta;
 
 
@@ -58,9 +57,9 @@ public class ProcesoSDES extends Fragment implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.btnCifrarSDES:
 
-                String Auxiliar = KeyCifrado.getText().toString();
+                final String Auxiliar = KeyCifrado.getText().toString();
                 if (Auxiliar.equals("") == false) {
-                    Key = Auxiliar;
+                    Proceso.RecibirLlaves(Auxiliar);
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new SDES()).commit();
                 } else if (Auxiliar.equals("") == true) {
                     Toast.makeText(getActivity(), "Debe de Ingresar una Llave para Poder Continuar", Toast.LENGTH_SHORT).show();
@@ -73,12 +72,11 @@ public class ProcesoSDES extends Fragment implements View.OnClickListener{
 
             case R.id.btnDescifrarSDES:
 
-                String Auxiliarc = KeyDescifrado.getText().toString();
+                final String Auxiliarc = KeyDescifrado.getText().toString();
+                KeyDescifrado.setText("");
                 if (Auxiliarc.equals("") == false) {
-                    Key = Auxiliarc;
-
                     //Aqui va todo el codigo para decifrar
-                    final CifradoZigZag ExtraerDatos = new CifradoZigZag();
+                    final SDES ExtraerDatos = new SDES();
 
                     //Esto es para Que seleccione la Ruta donde desea guardar el archivo decifrado
                     //Se Extraen los datos Leidos de la Estructura para fijarlos en la Actividad
@@ -117,12 +115,40 @@ public class ProcesoSDES extends Fragment implements View.OnClickListener{
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
+
+                            int [] CadenaInt = new int[10];
+                            char[] cadenaChar = Auxiliarc.toCharArray();
+
+                            for (int i = 0; i < 10; i++)
+                            {
+                                CadenaInt[i] = cadenaChar[i];
+
+                                if(CadenaInt[i] == 48)
+                                    CadenaInt[i] = 0;
+                                else
+                                    CadenaInt[i] = 1;
+                            }
+
+                            String TextoparaEscribir = "";
                             //Aqui se envia a Descifrar y a Escribir
-                            CifradoZigZag Envio = new CifradoZigZag();
+                            SDES Envio = new SDES();
+                            Envio.GenerarLlaves(CadenaInt);
                             //Aqui debe de recibir el texto decifrado que se va aenviar a escribir
                             File ArchivoCifrado = new File(RutaArchivoCifrado);
-                            String TextoCifrado = Envio.LeerArchivo(ArchivoCifrado);
+                            char[] TextoaDescifrar = new char[0];
+                            try {
+                                TextoaDescifrar = Envio.Lectura(ArchivoCifrado);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            TextoparaEscribir = "";
+                            for(int i = 0; i< TextoaDescifrar.length; i++)
+                            {
+                                char letraDesifrada = Envio.DescifrarSDES(TextoaDescifrar[i]);
+                                TextoparaEscribir = TextoparaEscribir + String.valueOf(letraDesifrada);
+                            }
 
+                            Envio.EscribirDecifrado(TextoparaEscribir,Ruta);
                             Toast.makeText(getActivity(), "Se ha Decifrado el Archivo Correctamente", Toast.LENGTH_SHORT).show();
 
                         }
@@ -144,6 +170,11 @@ public class ProcesoSDES extends Fragment implements View.OnClickListener{
         }
     }
 
+
+    public void RecibirParametros(String RutaArchivoCifrado)
+    {
+        this.RutaArchivoCifrado = RutaArchivoCifrado;
+    }
 
 
 }

@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
-            final CifradoZigZag ExtraerDatos = new CifradoZigZag();
+            final SDES ExtraerDatos = new SDES();
             //Se Extraen los datos Leidos de la Estructura para fijarlos en la Actividad
             List<String> Lista = ExtraerDatos.EnviarNombres();
 
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Selecciona la Ruta para Guardar tus Archivos");
+            builder.setTitle("Selecciona la Ruta para Guardar tu Cifrado");
 
             int checkedItem = 1; // cow
             builder.setSingleChoiceItems(ListaNombres, checkedItem, new DialogInterface.OnClickListener() {
@@ -140,8 +141,14 @@ public class MainActivity extends AppCompatActivity
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (id == R.id.nav_camera) {
+            TextView Instrucciones = findViewById(R.id.textinstrucciones);
+            Instrucciones.setEnabled(false);
+            Instrucciones.setVisibility(View.INVISIBLE);
             fragmentManager.beginTransaction().replace(R.id.contenedor, new CifradoZigZag()).commit();
         } else if (id == R.id.nav_gallery) {
+            TextView Instrucciones = findViewById(R.id.textinstrucciones);
+            Instrucciones.setEnabled(false);
+            Instrucciones.setVisibility(View.INVISIBLE);
             fragmentManager.beginTransaction().replace(R.id.contenedor, new ProcesoSDES()).commit();
         } else if (id == R.id.nav_slideshow) {
 
