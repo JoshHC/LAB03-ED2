@@ -19,9 +19,12 @@ import org.w3c.dom.Text;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -106,15 +109,24 @@ public class SDES extends Fragment implements OnItemClickListener {
     //Metodo en donde se lee el Archivo
     public static char[] Lectura(File Archivo) throws IOException
     {
+
         if(Archivo.exists()==true)
         {
+            FileInputStream Lector = new FileInputStream(Archivo);
+            InputStreamReader LecturarArchivoC = new InputStreamReader(Lector, "Windows-1252");
+            BufferedReader LeerArchivoC = new BufferedReader(LecturarArchivoC);
+
             String Texto = "";
             FileReader LecturaArchivo;
             LecturaArchivo = new FileReader(Archivo);
             BufferedReader LeerArchivo = new BufferedReader(LecturaArchivo);
+
             String Linea="";
             String SiguienteLinea="";
             Linea = LeerArchivo.readLine();
+
+            char Simbolo = (char)65533;
+
             while(Linea != null)
             {
                 SiguienteLinea = LeerArchivo.readLine();
@@ -125,8 +137,28 @@ public class SDES extends Fragment implements OnItemClickListener {
 
                 Linea = SiguienteLinea;
             }
+            if(Texto.contains(String.valueOf(Simbolo)))
+            {
+                Texto = "";
+                Linea = "";
+                SiguienteLinea = "";
+                Linea = LeerArchivoC.readLine();
+                while(Linea != null)
+                {
+                    SiguienteLinea = LeerArchivoC.readLine();
+                    Texto += Linea;
+
+                    if (SiguienteLinea != null)
+                        Texto += "λ";
+
+                    Linea = SiguienteLinea;
+                }
+
+            }
             LecturaArchivo.close();
             LeerArchivo.close();
+            LecturarArchivoC.close();
+            Lector.close();
 
             return Texto.toCharArray();
         }
