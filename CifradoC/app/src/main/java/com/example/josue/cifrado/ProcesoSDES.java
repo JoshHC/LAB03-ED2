@@ -171,7 +171,6 @@ public class ProcesoSDES extends Fragment implements View.OnClickListener{
                                     CadenaInt[i] = 1;
                             }
 
-                            String TextoparaEscribir = "";
                             //Aqui se envia a Descifrar y a Escribir
                             SDES Envio = new SDES();
                             Envio.GenerarLlaves(CadenaInt);
@@ -183,14 +182,24 @@ public class ProcesoSDES extends Fragment implements View.OnClickListener{
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            TextoparaEscribir = "";
+
+                            List<String> Lineas = new ArrayList<>();
+                            String Linea = "";
                             for(int i = 0; i< TextoaDescifrar.length; i++)
                             {
                                 char letraDesifrada = Envio.DescifrarSDES(TextoaDescifrar[i]);
-                                TextoparaEscribir = TextoparaEscribir + String.valueOf(letraDesifrada);
+
+                                if (letraDesifrada == '@')
+                                {
+                                    Lineas.add(Linea);
+                                    Linea = "";
+                                }
+                                else
+                                    Linea += String.valueOf(letraDesifrada);
                             }
 
-                            Envio.EscribirDecifrado(TextoparaEscribir,Ruta);
+                            Lineas.add(Linea);
+                            Envio.EscribirDecifrado(Lineas,Ruta);
                             Toast.makeText(getActivity(), "Se ha Decifrado el Archivo Correctamente", Toast.LENGTH_SHORT).show();
 
                         }

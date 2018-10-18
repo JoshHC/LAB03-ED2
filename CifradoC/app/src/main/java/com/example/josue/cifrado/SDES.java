@@ -133,7 +133,7 @@ public class SDES extends Fragment implements OnItemClickListener {
                 Texto += Linea;
 
                 if (SiguienteLinea != null)
-                    Texto += "λ";
+                    Texto += "@";
 
                 Linea = SiguienteLinea;
             }
@@ -149,7 +149,7 @@ public class SDES extends Fragment implements OnItemClickListener {
                     Texto += Linea;
 
                     if (SiguienteLinea != null)
-                        Texto += "λ";
+                        Texto += "@";
 
                     Linea = SiguienteLinea;
                 }
@@ -284,7 +284,7 @@ public class SDES extends Fragment implements OnItemClickListener {
     }
 
     //Metodo en donde se escribe el Archivo
-    public void EscribirDecifrado(String Cadena, String RutaAux) {
+    public void EscribirDecifrado(List<String> Lineas, String RutaAux) {
 
         MainActivity P = new MainActivity();
         File directorioactual = new File(DirectorioRaiz);
@@ -314,7 +314,13 @@ public class SDES extends Fragment implements OnItemClickListener {
         try {
             FileWriter Escribir = new FileWriter(Archivo);
             BufferedWriter bw = new BufferedWriter(Escribir);
-            bw.write(Cadena);
+
+            for (String Linea : Lineas)
+            {
+                 bw.write(Linea + "\n");
+            }
+
+
             bw.close();
             Escribir.close();
         } catch (IOException ex) {
