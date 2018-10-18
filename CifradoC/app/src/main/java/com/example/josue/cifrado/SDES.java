@@ -164,7 +164,19 @@ public class SDES extends Fragment implements OnItemClickListener {
 
             for(int i = 0; i<TextoEnvio.length;i++)
             {
+                if(TextoEnvio[i] == 8220)
+                {
+                    TextoEnvio[i] = 34;
+                }
+                if(TextoEnvio[i] == 8221)
+                {
+                    TextoEnvio[i] = 34;
+                }
                 if(TextoEnvio[i] =='\uFEFF')
+                {
+                    TextoEnvio[i] = 32;
+                }
+                if(TextoEnvio[i] == 955)
                 {
                     TextoEnvio[i] = 32;
                 }
