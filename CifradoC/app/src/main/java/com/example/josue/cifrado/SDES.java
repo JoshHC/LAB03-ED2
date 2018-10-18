@@ -155,12 +155,22 @@ public class SDES extends Fragment implements OnItemClickListener {
                 }
 
             }
-            LecturaArchivo.close();
-            LeerArchivo.close();
             LecturarArchivoC.close();
             Lector.close();
+            LecturaArchivo.close();
+            LeerArchivo.close();
 
-            return Texto.toCharArray();
+            char [] TextoEnvio = Texto.toCharArray();
+
+            for(int i = 0; i<TextoEnvio.length;i++)
+            {
+                if(TextoEnvio[i] =='\uFEFF')
+                {
+                    TextoEnvio[i] = 32;
+                }
+            }
+
+            return  TextoEnvio;
         }
         else
         {
@@ -243,6 +253,7 @@ public class SDES extends Fragment implements OnItemClickListener {
                 Dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
 
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new ProcesoSDES()).commit();
                     }
                 });
                 Dialogo.show();
