@@ -58,15 +58,37 @@ public class ProcesoSDES extends Fragment implements View.OnClickListener{
             case R.id.btnCifrarSDES:
 
                 final String Auxiliar = KeyCifrado.getText().toString();
-                if (Auxiliar.equals("") == false) {
-                    Proceso.RecibirLlaves(Auxiliar);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new SDES()).commit();
-                } else if (Auxiliar.equals("") == true) {
-                    Toast.makeText(getActivity(), "Debe de Ingresar una Llave para Poder Continuar", Toast.LENGTH_SHORT).show();
-                } else if (Auxiliar.length() < 10) {
-                    Toast.makeText(getActivity(), "La Clave de Cifrado debe tener al menos 10 Bits", Toast.LENGTH_SHORT).show();
+
+                boolean CaracteresInvalidos = false;
+                for (int i = 0; i < Auxiliar.length(); i++)
+                {
+                    if (Character.toString(Auxiliar.charAt(i)).equals("0") == false && Character.toString(Auxiliar.charAt(i)).equals("1") == false)
+                        CaracteresInvalidos = true;
                 }
 
+
+
+                if (Auxiliar.equals("") == false)
+                {
+                    if (Auxiliar.length() != 10)
+                    {
+                        Toast.makeText(getActivity(), "La Clave de Cifrado debe tener 10 Bits", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    else if (CaracteresInvalidos)
+                    {
+                        Toast.makeText(getActivity(), "Debes ingresar únicamente ceros y unos", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+
+
+                    Proceso.RecibirLlaves(Auxiliar);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new SDES()).commit();
+                }
+                else if (Auxiliar.equals("") == true)
+                {
+                    Toast.makeText(getActivity(), "Debe de Ingresar una Llave para Poder Continuar", Toast.LENGTH_SHORT).show();
+                }
 
                 break;
 
@@ -74,7 +96,27 @@ public class ProcesoSDES extends Fragment implements View.OnClickListener{
 
                 final String Auxiliarc = KeyDescifrado.getText().toString();
                 KeyDescifrado.setText("");
+
+                CaracteresInvalidos = false;
+                for (int i = 0; i < Auxiliarc.length(); i++)
+                {
+                    if (Character.toString(Auxiliarc.charAt(i)).equals("0") == false && Character.toString(Auxiliarc.charAt(i)).equals("1") == false)
+                        CaracteresInvalidos = true;
+                }
+
                 if (Auxiliarc.equals("") == false) {
+
+                    if (Auxiliarc.length() != 10)
+                    {
+                        Toast.makeText(getActivity(), "La Clave de Cifrado debe tener 10 Bits", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                    else if (CaracteresInvalidos)
+                    {
+                        Toast.makeText(getActivity(), "Debes ingresar únicamente ceros y unos", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+
                     //Aqui va todo el codigo para decifrar
                     final SDES ExtraerDatos = new SDES();
 
@@ -161,11 +203,13 @@ public class ProcesoSDES extends Fragment implements View.OnClickListener{
                     dialog.show();
 
                     break;
-                } else if (Auxiliarc.equals("") == true) {
-                    Toast.makeText(getActivity(), "Debe de Ingresar una Llave para Poder Continuar", Toast.LENGTH_SHORT).show();
-                } else if (Auxiliarc.length() < 10) {
-                    Toast.makeText(getActivity(), "La Clave de Descifrado debe tener al menos 10 Bits", Toast.LENGTH_SHORT).show();
                 }
+                else if (Auxiliarc.equals("") == true)
+                {
+                    Toast.makeText(getActivity(), "Debe de Ingresar una Llave para Poder Continuar", Toast.LENGTH_SHORT).show();
+                }
+
+            break;
 
         }
     }
