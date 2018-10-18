@@ -2,8 +2,10 @@ package com.example.josue.cifrado;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -284,6 +286,7 @@ public class SDES extends Fragment implements OnItemClickListener {
     }
 
     //Metodo en donde se escribe el Archivo
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void EscribirDecifrado(List<String> Lineas, String RutaAux) {
 
         MainActivity P = new MainActivity();
@@ -312,12 +315,12 @@ public class SDES extends Fragment implements OnItemClickListener {
 
         File Archivo = new File(RutaC);
         try {
-            FileWriter Escribir = new FileWriter(Archivo);
+            FileWriter Escribir = new FileWriter(Archivo,true);
             BufferedWriter bw = new BufferedWriter(Escribir);
 
             for (String Linea : Lineas)
             {
-                 bw.write(Linea + "\n");
+                 bw.write(Linea + System.lineSeparator());
             }
 
 
