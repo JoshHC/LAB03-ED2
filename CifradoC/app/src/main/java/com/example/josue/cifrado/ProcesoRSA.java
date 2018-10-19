@@ -61,84 +61,111 @@ public class ProcesoRSA extends Fragment implements View.OnClickListener {
         {
             case R.id.btnCifrarRSA:
 
-                String Auxiliar = KeyCifrado1.getText().toString();
-                BigInteger Key1 = BigInteger.valueOf(Integer.valueOf(Auxiliar));
-                Auxiliar = KeyCifrado2.getText().toString();
-                BigInteger Key2 = BigInteger.valueOf(Integer.valueOf(Auxiliar));
-                RSA Envio = new RSA();
-                Envio.RecibirLlaves(Key1,Key2);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new RSA()).commit();
+                String Auxiliar1 = KeyCifrado1.getText().toString();
+                String Auxiliar2 =  KeyCifrado2.getText().toString();
+                if(Auxiliar1.equals("")|| Auxiliar2.equals(""))
+                {
+                    KeyCifrado1.setText("");
+                    KeyCifrado2.setText("");
+                    Toast.makeText(getActivity(), "Se Necesitan dos claves para poder continuar", Toast.LENGTH_SHORT).show();
+                }
+                else if(ValidarPrimo(Integer.parseInt(Auxiliar1)) == false || ValidarPrimo(Integer.parseInt(Auxiliar2)) == false )
+                {
+                    Toast.makeText(getActivity(), "Alguno de los dos numeros o los dos NO son primos, porfavor ingrese numeros primos", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    String Auxiliar = KeyCifrado1.getText().toString();
+                    BigInteger Key1 = BigInteger.valueOf(Integer.valueOf(Auxiliar));
+                    Auxiliar = KeyCifrado2.getText().toString();
+                    BigInteger Key2 = BigInteger.valueOf(Integer.valueOf(Auxiliar));
+                    RSA Envio = new RSA();
+                    Envio.RecibirLlaves(Key1, Key2);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new RSA()).commit();
+                }
                 break;
 
             case R.id.btnDescifrarRSA:
 
-                //Aqui va todo el codigo para decifrar
-                final RSA ExtraerDatos = new RSA();
-
-                //Esto es para Que seleccione la Ruta donde desea guardar el archivo decifrado
-                //Se Extraen los datos Leidos de la Estructura para fijarlos en la Actividad
-                List<String> Lista = ExtraerDatos.EnviarNombres();
-
-                final String[] ListaNombres = new String[Lista.size()];
-                int contador = 0;
-                for (String i : Lista) {
-                    ListaNombres[contador] = i;
-                    contador++;
+                String Auxiliarc1 = KeyDescifrado1.getText().toString();
+                String Auxiliarc2 =  KeyDescifrado2.getText().toString();
+                if(Auxiliarc1.equals("")|| Auxiliarc2.equals(""))
+                {
+                    KeyDescifrado1.setText("");
+                    KeyDescifrado2.setText("");
+                    Toast.makeText(getActivity(), "Se Necesitan dos claves para poder continuar", Toast.LENGTH_SHORT).show();
                 }
+                else if(ValidarPrimo(Integer.parseInt(Auxiliarc1)) == false || ValidarPrimo(Integer.parseInt(Auxiliarc2)) == false )
+                {
+                    Toast.makeText(getActivity(), "Alguno de los dos numeros o los dos NO son primos, porfavor ingrese numeros primos", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //Aqui va todo el codigo para decifrar
+                    final RSA ExtraerDatos = new RSA();
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Selecciona la Ruta para Guardar tu Archivo Decifrado");
+                    //Esto es para Que seleccione la Ruta donde desea guardar el archivo decifrado
+                    //Se Extraen los datos Leidos de la Estructura para fijarlos en la Actividad
+                    List<String> Lista = ExtraerDatos.EnviarNombres();
 
-                int checkedItem = 1; // cow
-                builder.setSingleChoiceItems(ListaNombres, checkedItem, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // user checked an item
+                    final String[] ListaNombres = new String[Lista.size()];
+                    int contador = 0;
+                    for (String i : Lista) {
+                        ListaNombres[contador] = i;
+                        contador++;
                     }
-                });
 
-                builder.setItems(ListaNombres,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int item) {
-                                Toast.makeText(getActivity(), "Has Elegido Guardar tu Archivo Decifrado en: " + ListaNombres[item], Toast.LENGTH_SHORT).show();
-                                //Se envian los datos a los Fragments
-                                ExtraerDatos.RecibirRuta(ListaNombres[item]);
-                                Ruta = ListaNombres[item];
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Selecciona la Ruta para Guardar tu Archivo Decifrado");
 
-                            }
-                        });
-
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        File ArchivoCifrado = new File(RutaArchivoCifrado);
-                        char[] TextoaDescifrar = null;
-                        try {
-                            TextoaDescifrar = RSA.Lectura(ArchivoCifrado);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    int checkedItem = 1; // cow
+                    builder.setSingleChoiceItems(ListaNombres, checkedItem, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // user checked an item
                         }
-                        String Auxiliar = KeyDescifrado1.getText().toString();
-                        BigInteger Key1 = BigInteger.valueOf(Integer.valueOf(Auxiliar));
-                        Auxiliar = KeyDescifrado2.getText().toString();
-                        BigInteger Key2 = BigInteger.valueOf(Integer.valueOf(Auxiliar));
+                    });
 
-                        StringBuilder TextoparaEscribir = new StringBuilder();
-                        TextoparaEscribir = ExtraerDatos.Descifrar(Key1, Key2, TextoaDescifrar);
-                        ExtraerDatos.EscribirDecifrado(TextoparaEscribir,Ruta);
-                        Toast.makeText(getActivity(), "Se ha Decifrado el Archivo Correctamente", Toast.LENGTH_SHORT).show();
+                    builder.setItems(ListaNombres,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int item) {
+                                    Toast.makeText(getActivity(), "Has Elegido Guardar tu Archivo Decifrado en: " + ListaNombres[item], Toast.LENGTH_SHORT).show();
+                                    //Se envian los datos a los Fragments
+                                    ExtraerDatos.RecibirRuta(ListaNombres[item]);
+                                    Ruta = ListaNombres[item];
 
-                    }
-                });
+                                }
+                            });
 
-                builder.setNegativeButton("Cancel", null);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            File ArchivoCifrado = new File(RutaArchivoCifrado);
+                            char[] TextoaDescifrar = null;
+                            try {
+                                TextoaDescifrar = RSA.Lectura(ArchivoCifrado);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            String Auxiliar = KeyDescifrado1.getText().toString();
+                            BigInteger Key1 = BigInteger.valueOf(Integer.valueOf(Auxiliar));
+                            Auxiliar = KeyDescifrado2.getText().toString();
+                            BigInteger Key2 = BigInteger.valueOf(Integer.valueOf(Auxiliar));
+
+                            StringBuilder TextoparaEscribir = new StringBuilder();
+                            TextoparaEscribir = ExtraerDatos.Descifrar(Key1, Key2, TextoaDescifrar);
+                            ExtraerDatos.EscribirDecifrado(TextoparaEscribir, Ruta);
+                            Toast.makeText(getActivity(), "Se ha Decifrado el Archivo Correctamente", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+                    builder.setNegativeButton("Cancel", null);
 
 
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
                 break;
         }
     }
@@ -146,5 +173,17 @@ public class ProcesoRSA extends Fragment implements View.OnClickListener {
     public void RecibirParametros(String RutaArchivoCifrado)
     {
         this.RutaArchivoCifrado = RutaArchivoCifrado;
+    }
+
+    public boolean ValidarPrimo(int Numero)
+    {
+        if(Numero%2 == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }
