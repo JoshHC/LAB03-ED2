@@ -17,7 +17,7 @@
             android:layout_height="34dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="157dp"
+            android:layout_marginBottom="186dp"
             android:background="@color/colorAccent"
             android:text="@string/buscar_archivo"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -78,7 +78,7 @@
             android:layout_height="38dp"
             android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/btnDescifrarRSA"
-            android:layout_marginBottom="207dp"
+            android:layout_marginBottom="226dp"
             android:background="#140689b4"
             android:ems="10"
             android:inputType="number" />
@@ -89,8 +89,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="232dp"
-            android:text="Ingrese las Llaves de Descifrado" />
+            android:layout_marginTop="280dp"
+            android:text="@string/ingrese_las_llaves_de_descifrado" />
 
         <TextView
             android:id="@+id/lblCifrado"
@@ -99,7 +99,26 @@
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/btnDescifrarRSA"
             android:layout_marginTop="46dp"
-            android:text="Ingrese las Llaves de Cifrado" />
+            android:text="@string/ingrese_las_llaves_de_cifrado" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="274dp"
+            android:layout_marginStart="110dp"
+            android:text="@string/n" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_marginEnd="108dp"
+            android:text="@string/d" />
 
     </RelativeLayout>
 
