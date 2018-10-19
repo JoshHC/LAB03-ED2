@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
 
             final SDES ExtraerDatos = new SDES();
+            final RSA ExtraerDatosr = new RSA();
             //Se Extraen los datos Leidos de la Estructura para fijarlos en la Actividad
             List<String> Lista = ExtraerDatos.EnviarNombres();
 
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity
                             Toast.makeText(getApplicationContext(),"Has Elegido Guardar tu Cifrado en: " + ListaNombres[item], Toast.LENGTH_SHORT).show();
                             //Se envian los datos a los Fragments
                             ExtraerDatos.RecibirRuta(ListaNombres[item]);
+                            ExtraerDatosr.RecibirRuta(ListaNombres[item]);
                             Ruta = ListaNombres[item];
                         }
                     });
@@ -151,7 +153,10 @@ public class MainActivity extends AppCompatActivity
             Instrucciones.setVisibility(View.INVISIBLE);
             fragmentManager.beginTransaction().replace(R.id.contenedor, new ProcesoSDES()).commit();
         } else if (id == R.id.nav_slideshow) {
-
+            TextView Instrucciones = findViewById(R.id.textinstrucciones);
+            Instrucciones.setEnabled(false);
+            Instrucciones.setVisibility(View.INVISIBLE);
+            fragmentManager.beginTransaction().replace(R.id.contenedor, new ProcesoRSA()).commit();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

@@ -2,8 +2,10 @@ package com.example.josue.cifrado;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -154,6 +156,7 @@ public class ProcesoSDES extends Fragment implements View.OnClickListener{
                             });
 
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
@@ -171,9 +174,9 @@ public class ProcesoSDES extends Fragment implements View.OnClickListener{
                                     CadenaInt[i] = 1;
                             }
 
-                            //Aqui se envia a Descifrar y a Escribir
+                           //Aqui se envia a Descifrar y a Escribir
                             SDES Envio = new SDES();
-                            Envio.GenerarLlaves(CadenaInt);
+                            Envio. GenerarLlaves(CadenaInt);
                             //Aqui debe de recibir el texto decifrado que se va aenviar a escribir
                             File ArchivoCifrado = new File(RutaArchivoCifrado);
                             char[] TextoaDescifrar = new char[0];
