@@ -165,26 +165,16 @@ public class RSA extends Fragment implements AdapterView.OnItemClickListener {
             LecturaArchivo.close();
             LeerArchivo.close();
 
-            char [] TextoEnvio = Texto.toCharArray();
+            char[] TextoEnvio;
 
-            for(int i = 0; i<TextoEnvio.length;i++)
+            final String UTF8_BOM = "\uFEFF";
+            if(Texto.contains(UTF8_BOM)) {
+                String[] Auxiliar = Texto.split(UTF8_BOM);
+                TextoEnvio = Auxiliar[1].toCharArray();
+            }
+            else
             {
-                if(TextoEnvio[i] == 8220)
-                {
-                    TextoEnvio[i] = 34;
-                }
-                if(TextoEnvio[i] == 8221)
-                {
-                    TextoEnvio[i] = 34;
-                }
-                if(TextoEnvio[i] =='\uFEFF')
-                {
-                    TextoEnvio[i] = 32;
-                }
-                if(TextoEnvio[i] == 955)
-                {
-                    TextoEnvio[i] = 32;
-                }
+                TextoEnvio = Texto.toCharArray();
             }
 
             return  TextoEnvio;
@@ -401,7 +391,7 @@ public class RSA extends Fragment implements AdapterView.OnItemClickListener {
                 Dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
 
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new ProcesoSDES()).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor, new ProcesoRSA()).commit();
                     }
                 });
                 Dialogo.show();
